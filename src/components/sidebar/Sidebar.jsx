@@ -1,10 +1,13 @@
 import React from "react";
-import { SidebarContainer } from "./sidebarElements";
+import { SidebarContainerBg, SidebarContainer } from "./sidebarElements";
 
 const Sidebar = () => {
+  console.log(window.innerHeight);
   return (
     <>
-      <SidebarContainer />
+      <SidebarContainerBg>
+        <SidebarContainer></SidebarContainer>
+      </SidebarContainerBg>
     </>
   );
 };
