@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import {
+  secondaryColor,
+  buttonPrimaryColor,
+  buttonSecondaryColor,
+  buttonActiveColor,
+} from "../../constants";
 let height = window.innerHeight * (3 / 8);
 let rotation = 12;
 
@@ -15,7 +21,7 @@ export const SidebarContainerBg = styled.div`
   z-index: 100;
   border-radius: 25px;
   transform: rotate(-${rotation}deg);
-  background-color: #737578;
+  background-color: ${buttonSecondaryColor};
   box-shadow: 0px -4px 4px #000000;
 `;
 
@@ -28,7 +34,7 @@ export const SidebarContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgba(255, 245, 245, 0.85);
+  background-color: ${buttonPrimaryColor};
   transform: rotate(${rotation}deg);
   border: 1px solid #000000;
   box-shadow: 0px 4px 4px #000000;
@@ -41,7 +47,8 @@ export const SidebarLink = styled.a`
   display: flex;
   width: 53%;
   height: 20px;
-  background-color: ${(props) => (props.active ? "#DF944F" : "#1A1E26")};
+  background-color: ${(props) =>
+    props.active ? buttonActiveColor : secondaryColor};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   transition: box-shadow 0.2s ease-in-out;
