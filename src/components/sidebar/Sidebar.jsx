@@ -1,12 +1,26 @@
 import React from "react";
-import { SidebarContainerBg, SidebarContainer } from "./sidebarElements";
+import {
+  SidebarContainerBg,
+  SidebarContainer,
+  SidebarLink,
+} from "./sidebarElements";
+import { links } from "./links";
 
 const Sidebar = () => {
-  console.log(window.innerHeight);
   return (
     <>
       <SidebarContainerBg>
-        <SidebarContainer></SidebarContainer>
+        <SidebarContainer>
+          {links.map((item, index) => {
+            return (
+              <SidebarLink
+                href={item.url}
+                selected={false}
+                key={index}
+              ></SidebarLink>
+            );
+          })}
+        </SidebarContainer>
       </SidebarContainerBg>
     </>
   );
