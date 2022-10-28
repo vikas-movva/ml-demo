@@ -13,7 +13,7 @@ export const DemoContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 22% auto 5%;
-  grid-template-rows: 15% auto;
+  grid-template-rows: 15% 5% auto;
 `;
 
 export const DemoHeader = styled.h1`
@@ -23,13 +23,19 @@ export const DemoHeader = styled.h1`
   font-size: ${window.innerHeight * 0.1}px;
   grid-column-start: 2;
 `;
-
+export const DemoInstructions = styled.p`
+  margin: 0;
+  color: ${primaryColor};
+  height: 11%;
+  font-size: ${window.innerHeight * 0.02}px;
+  grid-column-start: 2;
+`;
 export const CanvasWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 20px repeat(4, 1fr);
   grid-column-start: 2;
-  grid-row-start: 2;
+  grid-row-start: 3;
   place-items: center;
 `;
 
@@ -75,4 +81,29 @@ export const ButtonText = styled.p`
   &:active {
     text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
   }
+`;
+
+export const blink = keyframes`
+  0% {
+    opacity: 1;
+
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+export const BlinkingBar = styled.p`
+  display: inline-block;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  background-color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-shadow: inherit;
+  animation: ${blink} 1s ease-in-out infinite;
 `;
