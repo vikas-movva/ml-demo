@@ -4,9 +4,9 @@ import {
   buttonPrimaryColor,
   buttonSecondaryColor,
   buttonActiveColor,
+  rotation,
 } from "../../constants";
 let height = window.innerHeight * (3 / 8);
-let rotation = 12;
 
 // background rectangle for the sidebar that is angled
 export const SidebarContainerBg = styled.div`
@@ -16,8 +16,6 @@ export const SidebarContainerBg = styled.div`
   width: 75px;
   height: ${height}px;
   margin-top: -${height * 0.5}px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 100;
   border-radius: 25px;
   transform: rotate(-${rotation}deg);
@@ -47,8 +45,7 @@ export const SidebarLink = styled.a`
   display: flex;
   width: 53%;
   height: 20px;
-  background-color: ${(props) =>
-    props.active ? buttonActiveColor : secondaryColor};
+  background-color: ${secondaryColor};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   transition: box-shadow 0.2s ease-in-out;
@@ -56,7 +53,6 @@ export const SidebarLink = styled.a`
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   }
   &:active {
-    /* box-shadow: 0px -4px -4px rgba(255, 245, 245, 0.25); */
-    box-shadow: inset 0px 4px 4px rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
   }
 `;
