@@ -18,6 +18,25 @@ const Demo = () => {
   };
   const canvasRef = useRef(null);
   const [pred, setPred] = useState("");
+
+  async function predict() {
+    const canvas = canvasRef.current;
+    const img = await canvas.exportImage("png");
+    const im_data = { image: img };
+    try {
+      console.log(JSON.stringify(img));
+      const res = await fetch("http://localhost:5000/api/mnist/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(im_data),
+      }); // TODO change to actual url
+      const data = await res.json();
+      console.error(data.message);
+      setPred(data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <DemoContainer>
       <DemoHeader>MNIST Demo</DemoHeader>
@@ -51,7 +70,7 @@ const Demo = () => {
           text="Submit"
           canvas={canvasRef}
           click={() => {
-            setPred(pred === "" ? 0 : pred + 1);
+            predict();
           }}
         />
         <ButtonBg style={{}} row={3} column={3}>
