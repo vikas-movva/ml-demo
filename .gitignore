@@ -26,4 +26,4 @@ yarn-error.log*
 Api/venv/*
 
 #model file
-.h5
+API/mnist_cnn.h5
