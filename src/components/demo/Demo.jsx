@@ -24,7 +24,6 @@ const Demo = () => {
     const img = await canvas.exportImage("png");
     const im_data = { image: img };
     try {
-      console.log(JSON.stringify(img));
       const res = await fetch(
         "https://vikas-ml-demos.herokuapp.com/api/mnist/predict",
         {
