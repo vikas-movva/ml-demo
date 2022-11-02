@@ -25,22 +25,24 @@ const Demo = () => {
     const im_data = { image: img };
     try {
       console.log(JSON.stringify(img));
-      const res = await fetch("http://localhost:5000/api/mnist/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(im_data),
-      }); // TODO change to actual url
+      const res = await fetch(
+        "https://vikas-ml-demos.herokuapp.com/api/mnist/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(im_data),
+        }
+      ); // TODO change to actual url
       const data = await res.json();
-      console.error(data.message);
-      setPred(data.message);
+      setPred(data.prediction);
     } catch (error) {
       console.error(error);
     }
   }
   return (
     <DemoContainer>
-      <DemoHeader>MNIST Demo</DemoHeader>
-      <DemoInstructions>
+      <DemoHeader style={{ gridArea: "1 / 1 / 2 / 3" }}>MNIST Demo</DemoHeader>
+      <DemoInstructions style={{ gridArea: "2 / 1 / 2 / 3" }}>
         Draw a number and click submit to get the computer’s predicton
       </DemoInstructions>
       <CanvasWrapper>
@@ -61,6 +63,7 @@ const Demo = () => {
           canvas={canvasRef}
           click={() => {
             canvasRef.current.clearCanvas();
+            setPred("");
           }}
         />
         <DemoButton
