@@ -8,13 +8,16 @@ import {
   CanvasWrapper,
   DemoInstructions,
   BlinkingBar,
+  DemoImg,
+  PredictCheck,
+  PredictCheckText,
 } from "./demoElements";
 import { ReactSketchCanvas } from "react-sketch-canvas";
+import { Fragment } from "react";
 
 const Demo = () => {
   const canvasStyles = {
     gridArea: "2 / 1 / 5 / 3",
-    // marginTop: "50%",
   };
   const canvasRef = useRef(null);
   const [pred, setPred] = useState("");
@@ -24,14 +27,18 @@ const Demo = () => {
     const img = await canvas.exportImage("png");
     console.log(img);
     const im_data = { image: img };
+    setPred("Predicting...");
     try {
-      const res = await fetch("http://localhost:5000/api/mnist/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(im_data),
-      }); // TODO change to actual url
+      const res = await fetch(
+        "https://vikas-ml-demos.herokuapp.com/api/mnist/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(im_data),
+        }
+      );
       const data = await res.json();
-      setPred(data.prediction);
+      setPred(data);
       console.log(data.img);
     } catch (error) {
       console.error(error);
@@ -45,12 +52,12 @@ const Demo = () => {
       </DemoInstructions>
       <CanvasWrapper>
         <ReactSketchCanvas
-          width={window.innerHeight * 0.6}
-          height={window.innerHeight * 0.6}
+          width={"60vh"}
+          height={"60vh"}
           style={canvasStyles}
           ref={canvasRef}
           strokeColor="white"
-          strokeWidth={window.innerHeight * 0.07}
+          strokeWidth={"5vh"}
           canvasColor="black"
         />
         <DemoButton
@@ -76,10 +83,27 @@ const Demo = () => {
         />
         <ButtonBg style={{}} row={3} column={3}>
           <ButtonText>
-            Prediction: {pred}
+            {pred === "Predicting..."
+              ? "Predicting..."
+              : pred === ""
+              ? ""
+              : pred.prediction
+              ? `Prediction: ${pred.prediction}`
+              : ""}
             <BlinkingBar>|</BlinkingBar>
           </ButtonText>
         </ButtonBg>
+        <PredictCheck row={5} column={1}>
+          {pred.prediction ? (
+            <>
+              <PredictCheckText>What the computer sees:</PredictCheckText>
+              <DemoImg
+                src={`data:data:image/png;base64,${pred.img}`}
+                alt="Image that the computer sees"
+              />
+            </>
+          ) : null}
+        </PredictCheck>
       </CanvasWrapper>
     </DemoContainer>
   );
