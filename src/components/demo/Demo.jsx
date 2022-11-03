@@ -22,18 +22,17 @@ const Demo = () => {
   async function predict() {
     const canvas = canvasRef.current;
     const img = await canvas.exportImage("png");
+    console.log(img);
     const im_data = { image: img };
     try {
-      const res = await fetch(
-        "https://vikas-ml-demos.herokuapp.com/api/mnist/predict",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(im_data),
-        }
-      ); // TODO change to actual url
+      const res = await fetch("http://localhost:5000/api/mnist/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(im_data),
+      }); // TODO change to actual url
       const data = await res.json();
       setPred(data.prediction);
+      console.log(data.img);
     } catch (error) {
       console.error(error);
     }
