@@ -25,7 +25,7 @@ const Demo = () => {
     const im_data = { image: img };
     try {
       const res = await fetch(
-        "https://vikas-ml-demos.herokuapp.com/api/mnist/predict",
+        "https://ml-demo-api.onrender.com/api/mnist/predict",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
