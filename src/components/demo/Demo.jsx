@@ -17,23 +17,21 @@ const Demo = () => {
     // marginTop: "50%",
   };
   const canvasRef = useRef(null);
-  const [pred, setPred] = useState("");
+  const [pred, setPred] = useState("Prediction: ");
 
   async function predict() {
     const canvas = canvasRef.current;
     const img = await canvas.exportImage("png");
     const im_data = { image: img };
     try {
-      const res = await fetch(
-        "https://ml-demo-api.onrender.com/api/mnist/predict",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(im_data),
-        }
-      ); // TODO change to actual url
+      setPred("Loading...");
+      const res = await fetch("http://34.134.45.242:8000/api/mnist/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(im_data),
+      }); // TODO change to actual url
       const data = await res.json();
-      setPred(data.prediction);
+      setPred(`Prediction: ${data.prediction}`);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +60,7 @@ const Demo = () => {
           canvas={canvasRef}
           click={() => {
             canvasRef.current.clearCanvas();
-            setPred("");
+            setPred("Prediction: ");
           }}
         />
         <DemoButton
@@ -77,7 +75,7 @@ const Demo = () => {
         />
         <ButtonBg style={{}} row={3} column={3}>
           <ButtonText>
-            Prediction: {pred}
+            {pred}
             <BlinkingBar>|</BlinkingBar>
           </ButtonText>
         </ButtonBg>
