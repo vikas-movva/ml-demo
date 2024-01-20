@@ -25,7 +25,7 @@ const Demo = () => {
     const im_data = { image: img };
     try {
       setPred("Loading...");
-      const res = await fetch("http://34.134.45.242:8000/api/mnist/predict", {
+      const res = await fetch("https://34.134.45.242:8000/api/mnist/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(im_data),
